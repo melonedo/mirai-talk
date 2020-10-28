@@ -9,6 +9,7 @@ from graia.application.entry import Friend, FriendMessage, MessageChain, Group, 
 import yaml
 import aiohttp
 
+# 包含mirai-api-http的配置文件中的对应部分以及qq号
 with open('setting.yml') as f:
     setting = yaml.load(f, yaml.BaseLoader)
 loop = asyncio.get_event_loop()
@@ -24,28 +25,24 @@ app = GraiaApp(
 )
 
 
-
 @bcc.receiver(FriendMessage)
 async def echoer(app: GraiaApp, message: MessageChain, friend: Friend):
     if message.asDisplay().startswith("复读"):
         await app.sendFriendMessage(friend, message.asSendable())
 
-def judge_group(group: Group):
-    whitelist = [943603660]
-    if group.id not in whitelist:
-        raise ExecutionStop
 
-def judge_command(cmd: str) -> callable:
-    def _judge_command(msg: MessageChain):
-        if not msg.asDisplay().startswith(cmd):
-            raise ExecutionStop
-    return _judge_command
+WHITELIST = [943603660]
 
 
-@bcc.receiver(GroupMessage, headless_decoraters=[Depend(judge_group), Depend(judge_command("电费"))])
-async def electricity(app:GraiaApp, message: MessageChain, group: Group):
+@bcc.receiver(GroupMessage)
+async def electricity(app: GraiaApp, message: MessageChain, group: Group):
+    if not (group.id in WHITELIST and message.asDisplay().startswith("电费")):
+        return
+
     async with aiohttp.ClientSession() as s:
-        resp = await s.get("http://172.81.215.215/pi/electricity", params={'room': message.asDisplay()[2:]})
+        resp = await s.get(
+            "http://172.81.215.215/pi/electricity",
+            params={'room': message.asDisplay()[2:]})
         json = await resp.json()
     if json['success']:
         text = f"{json['name']} {json['type']}: {json['number']}{json['unit']}"
