@@ -21,3 +21,35 @@
 5. 修改`./miraiOK/config/Console/AutoLogin.yml`和`./miraiOK/config/MiraiApiHttp/setting.yml`，并将`./miraiOK/config/MiraiApiHttp/setting.yml`复制到`.graia/`下。`.graia/`下的`setting.yml`应当根据后续的报错修改。
 
 6. 运行容器`docker-compose up` （或后台运行`docker-compose up -d`）
+
+样例`.graia/setting.yml`:
+
+```
+host: mirai
+port: 8080
+authKey: INITKEYWhaxxxx
+qq: 353364xxxx
+cacheSize: 4096
+enableWebsocket: false
+report:
+  enable: false
+  groupMessage:
+    report: true
+  friendMessage:
+    report: true
+  tempMessage:
+    report: true
+  eventMessage:
+    report: true
+  destinations: []
+  extraHeaders: {}
+
+heartbeat:
+  enable: false
+  delay: 1000
+  period: 15000
+  destinations: []
+  extraBody: {}
+  extraHeaders: {}
+
+```
