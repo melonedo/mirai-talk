@@ -1,5 +1,5 @@
 from graia.broadcast import Broadcast
-from graia.application.entry import GraiaMiraiApplication
+from graia.application.entry import GraiaMiraiApplication, Session
 import asyncio
 import yaml
 
