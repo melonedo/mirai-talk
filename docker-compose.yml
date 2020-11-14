@@ -1,0 +1,19 @@
+version: '2'
+services:
+    mirai:
+        build: ./miraiOK
+        stdin_open: true
+        volumes:
+            - ./miraiOK:/app
+
+    graia:
+        build: ./graia
+
+        volumes:
+            - ./graia:/app
+            #- ./miraiOK/config/MiraiApiHttp:/config
+
+        links:
+            - mirai
+
+

@@ -8,8 +8,11 @@ from graia.application.entry import Friend, FriendMessage, MessageChain, Group, 
 
 import yaml
 import aiohttp
-
+import time
 # 包含mirai-api-http的配置文件中的对应部分以及qq号
+
+time.sleep(15)
+
 with open('setting.yml') as f:
     setting = yaml.load(f, yaml.BaseLoader)
 loop = asyncio.get_event_loop()
