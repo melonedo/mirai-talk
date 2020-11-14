@@ -26,7 +26,7 @@
 
 使用指令
 
-`pip install graia-application-mirai graia-broadcast --update`
+`pip install graia-application-mirai graia-broadcast PyYAML --update`
 
 ## 收工
 
