@@ -5,4 +5,4 @@ WORKDIR  /app
 RUN  pip install pyyaml graia-application-mirai -i https://mirrors.aliyun.com/pypi/simple/ 
 
 # Run app.py when the container launches
-CMD ["python", "main.py"]
+CMD ["python", "docker_start.py"]

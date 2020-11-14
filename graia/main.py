@@ -7,9 +7,7 @@ from graia.application.entry import ApplicationLaunched, MemberMuteEvent, At, Me
 
 import yaml
 import aiohttp
-import time
 
-time.sleep(15)
 
 # 包含mirai-api-http的配置文件中的对应部分以及qq号
 with open('setting.yml') as f:
